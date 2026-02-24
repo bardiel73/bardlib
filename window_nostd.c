@@ -24,32 +24,32 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         case WM_KEYDOWN: { // https://learn.microsoft.com/en-gb/windows/win32/inputdev/virtual-key-codes
             switch(wParam)
             {
-                case 'A': BARD_BITSET(global_window_state.win32.global_keyboard, 'A' - 65); break;
-                case 'B': BARD_BITSET(global_window_state.win32.global_keyboard, 'B' - 65); break;
-                case 'C': BARD_BITSET(global_window_state.win32.global_keyboard, 'C' - 65); break;
-                case 'D': BARD_BITSET(global_window_state.win32.global_keyboard, 'D' - 65); break;
-                case 'E': BARD_BITSET(global_window_state.win32.global_keyboard, 'E' - 65); break;
-                case 'F': BARD_BITSET(global_window_state.win32.global_keyboard, 'F' - 65); break;
-                case 'G': BARD_BITSET(global_window_state.win32.global_keyboard, 'G' - 65); break;
-                case 'H': BARD_BITSET(global_window_state.win32.global_keyboard, 'H' - 65); break;
-                case 'I': BARD_BITSET(global_window_state.win32.global_keyboard, 'I' - 65); break;
-                case 'J': BARD_BITSET(global_window_state.win32.global_keyboard, 'J' - 65); break;
-                case 'K': BARD_BITSET(global_window_state.win32.global_keyboard, 'K' - 65); break;
-                case 'L': BARD_BITSET(global_window_state.win32.global_keyboard, 'L' - 65); break;
-                case 'M': BARD_BITSET(global_window_state.win32.global_keyboard, 'M' - 65); break;
-                case 'N': BARD_BITSET(global_window_state.win32.global_keyboard, 'N' - 65); break;
-                case 'O': BARD_BITSET(global_window_state.win32.global_keyboard, 'O' - 65); break;
-                case 'P': BARD_BITSET(global_window_state.win32.global_keyboard, 'P' - 65); break;
-                case 'Q': BARD_BITSET(global_window_state.win32.global_keyboard, 'Q' - 65); break;
-                case 'R': BARD_BITSET(global_window_state.win32.global_keyboard, 'R' - 65); break;
-                case 'S': BARD_BITSET(global_window_state.win32.global_keyboard, 'S' - 65); break;
-                case 'T': BARD_BITSET(global_window_state.win32.global_keyboard, 'T' - 65); break;
-                case 'U': BARD_BITSET(global_window_state.win32.global_keyboard, 'U' - 65); break;
-                case 'V': BARD_BITSET(global_window_state.win32.global_keyboard, 'V' - 65); break;
-                case 'W': BARD_BITSET(global_window_state.win32.global_keyboard, 'W' - 65); break;
-                case 'X': BARD_BITSET(global_window_state.win32.global_keyboard, 'X' - 65); break;
-                case 'Y': BARD_BITSET(global_window_state.win32.global_keyboard, 'Y' - 65); break;
-                case 'Z': BARD_BITSET(global_window_state.win32.global_keyboard, 'Z' - 65); break;
+                case 'A': BARD_BITSET(global_window_state.win32.keyboard, 'A' - 65); break;
+                case 'B': BARD_BITSET(global_window_state.win32.keyboard, 'B' - 65); break;
+                case 'C': BARD_BITSET(global_window_state.win32.keyboard, 'C' - 65); break;
+                case 'D': BARD_BITSET(global_window_state.win32.keyboard, 'D' - 65); break;
+                case 'E': BARD_BITSET(global_window_state.win32.keyboard, 'E' - 65); break;
+                case 'F': BARD_BITSET(global_window_state.win32.keyboard, 'F' - 65); break;
+                case 'G': BARD_BITSET(global_window_state.win32.keyboard, 'G' - 65); break;
+                case 'H': BARD_BITSET(global_window_state.win32.keyboard, 'H' - 65); break;
+                case 'I': BARD_BITSET(global_window_state.win32.keyboard, 'I' - 65); break;
+                case 'J': BARD_BITSET(global_window_state.win32.keyboard, 'J' - 65); break;
+                case 'K': BARD_BITSET(global_window_state.win32.keyboard, 'K' - 65); break;
+                case 'L': BARD_BITSET(global_window_state.win32.keyboard, 'L' - 65); break;
+                case 'M': BARD_BITSET(global_window_state.win32.keyboard, 'M' - 65); break;
+                case 'N': BARD_BITSET(global_window_state.win32.keyboard, 'N' - 65); break;
+                case 'O': BARD_BITSET(global_window_state.win32.keyboard, 'O' - 65); break;
+                case 'P': BARD_BITSET(global_window_state.win32.keyboard, 'P' - 65); break;
+                case 'Q': BARD_BITSET(global_window_state.win32.keyboard, 'Q' - 65); break;
+                case 'R': BARD_BITSET(global_window_state.win32.keyboard, 'R' - 65); break;
+                case 'S': BARD_BITSET(global_window_state.win32.keyboard, 'S' - 65); break;
+                case 'T': BARD_BITSET(global_window_state.win32.keyboard, 'T' - 65); break;
+                case 'U': BARD_BITSET(global_window_state.win32.keyboard, 'U' - 65); break;
+                case 'V': BARD_BITSET(global_window_state.win32.keyboard, 'V' - 65); break;
+                case 'W': BARD_BITSET(global_window_state.win32.keyboard, 'W' - 65); break;
+                case 'X': BARD_BITSET(global_window_state.win32.keyboard, 'X' - 65); break;
+                case 'Y': BARD_BITSET(global_window_state.win32.keyboard, 'Y' - 65); break;
+                case 'Z': BARD_BITSET(global_window_state.win32.keyboard, 'Z' - 65); break;
                 case VK_ESCAPE: DestroyWindow(hwnd); break;
             }
         } break;
@@ -57,32 +57,32 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         case WM_KEYUP: {
             switch(wParam)
             {
-                case 'A': BARD_BITUNSET(global_window_state.win32.global_keyboard, 'A' - 65); break;
-                case 'B': BARD_BITUNSET(global_window_state.win32.global_keyboard, 'B' - 65); break;
-                case 'C': BARD_BITUNSET(global_window_state.win32.global_keyboard, 'C' - 65); break;
-                case 'D': BARD_BITUNSET(global_window_state.win32.global_keyboard, 'D' - 65); break;
-                case 'E': BARD_BITUNSET(global_window_state.win32.global_keyboard, 'E' - 65); break;
-                case 'F': BARD_BITUNSET(global_window_state.win32.global_keyboard, 'F' - 65); break;
-                case 'G': BARD_BITUNSET(global_window_state.win32.global_keyboard, 'G' - 65); break;
-                case 'H': BARD_BITUNSET(global_window_state.win32.global_keyboard, 'H' - 65); break;
-                case 'I': BARD_BITUNSET(global_window_state.win32.global_keyboard, 'I' - 65); break;
-                case 'J': BARD_BITUNSET(global_window_state.win32.global_keyboard, 'J' - 65); break;
-                case 'K': BARD_BITUNSET(global_window_state.win32.global_keyboard, 'K' - 65); break;
-                case 'L': BARD_BITUNSET(global_window_state.win32.global_keyboard, 'L' - 65); break;
-                case 'M': BARD_BITUNSET(global_window_state.win32.global_keyboard, 'M' - 65); break;
-                case 'N': BARD_BITUNSET(global_window_state.win32.global_keyboard, 'N' - 65); break;
-                case 'O': BARD_BITUNSET(global_window_state.win32.global_keyboard, 'O' - 65); break;
-                case 'P': BARD_BITUNSET(global_window_state.win32.global_keyboard, 'P' - 65); break;
-                case 'Q': BARD_BITUNSET(global_window_state.win32.global_keyboard, 'Q' - 65); break;
-                case 'R': BARD_BITUNSET(global_window_state.win32.global_keyboard, 'R' - 65); break;
-                case 'S': BARD_BITUNSET(global_window_state.win32.global_keyboard, 'S' - 65); break;
-                case 'T': BARD_BITUNSET(global_window_state.win32.global_keyboard, 'T' - 65); break;
-                case 'U': BARD_BITUNSET(global_window_state.win32.global_keyboard, 'U' - 65); break;
-                case 'V': BARD_BITUNSET(global_window_state.win32.global_keyboard, 'V' - 65); break;
-                case 'W': BARD_BITUNSET(global_window_state.win32.global_keyboard, 'W' - 65); break;
-                case 'X': BARD_BITUNSET(global_window_state.win32.global_keyboard, 'X' - 65); break;
-                case 'Y': BARD_BITUNSET(global_window_state.win32.global_keyboard, 'Y' - 65); break;
-                case 'Z': BARD_BITUNSET(global_window_state.win32.global_keyboard, 'Z' - 65); break;
+                case 'A': BARD_BITUNSET(global_window_state.win32.keyboard, 'A' - 65); break;
+                case 'B': BARD_BITUNSET(global_window_state.win32.keyboard, 'B' - 65); break;
+                case 'C': BARD_BITUNSET(global_window_state.win32.keyboard, 'C' - 65); break;
+                case 'D': BARD_BITUNSET(global_window_state.win32.keyboard, 'D' - 65); break;
+                case 'E': BARD_BITUNSET(global_window_state.win32.keyboard, 'E' - 65); break;
+                case 'F': BARD_BITUNSET(global_window_state.win32.keyboard, 'F' - 65); break;
+                case 'G': BARD_BITUNSET(global_window_state.win32.keyboard, 'G' - 65); break;
+                case 'H': BARD_BITUNSET(global_window_state.win32.keyboard, 'H' - 65); break;
+                case 'I': BARD_BITUNSET(global_window_state.win32.keyboard, 'I' - 65); break;
+                case 'J': BARD_BITUNSET(global_window_state.win32.keyboard, 'J' - 65); break;
+                case 'K': BARD_BITUNSET(global_window_state.win32.keyboard, 'K' - 65); break;
+                case 'L': BARD_BITUNSET(global_window_state.win32.keyboard, 'L' - 65); break;
+                case 'M': BARD_BITUNSET(global_window_state.win32.keyboard, 'M' - 65); break;
+                case 'N': BARD_BITUNSET(global_window_state.win32.keyboard, 'N' - 65); break;
+                case 'O': BARD_BITUNSET(global_window_state.win32.keyboard, 'O' - 65); break;
+                case 'P': BARD_BITUNSET(global_window_state.win32.keyboard, 'P' - 65); break;
+                case 'Q': BARD_BITUNSET(global_window_state.win32.keyboard, 'Q' - 65); break;
+                case 'R': BARD_BITUNSET(global_window_state.win32.keyboard, 'R' - 65); break;
+                case 'S': BARD_BITUNSET(global_window_state.win32.keyboard, 'S' - 65); break;
+                case 'T': BARD_BITUNSET(global_window_state.win32.keyboard, 'T' - 65); break;
+                case 'U': BARD_BITUNSET(global_window_state.win32.keyboard, 'U' - 65); break;
+                case 'V': BARD_BITUNSET(global_window_state.win32.keyboard, 'V' - 65); break;
+                case 'W': BARD_BITUNSET(global_window_state.win32.keyboard, 'W' - 65); break;
+                case 'X': BARD_BITUNSET(global_window_state.win32.keyboard, 'X' - 65); break;
+                case 'Y': BARD_BITUNSET(global_window_state.win32.keyboard, 'Y' - 65); break;
+                case 'Z': BARD_BITUNSET(global_window_state.win32.keyboard, 'Z' - 65); break;
             }
         } break;
 
