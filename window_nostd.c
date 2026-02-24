@@ -8,6 +8,9 @@
 #define BARD_BITUNSET(val, index) val = (uint64_t)((val) & (uint64_t)((uint64_t)0 << (index)))
 #define BARD_BITTEST(val, index) (uint64_t)((val) & (uint64_t)((uint64_t)1 << (index)))
 
+#define LAST_ASCII ('Z' - 65)
+#define BARD_ESC (LAST_ASCII + 1)
+
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     switch (uMsg)
@@ -50,7 +53,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 case 'X': BARD_BITSET(global_state.keyboard, 'X' - 65); break;
                 case 'Y': BARD_BITSET(global_state.keyboard, 'Y' - 65); break;
                 case 'Z': BARD_BITSET(global_state.keyboard, 'Z' - 65); break;
-                case VK_ESCAPE: DestroyWindow(hwnd); break;
+                case VK_ESCAPE: BARD_BITSET(global_state.keyboard, BARD_ESC); DestroyWindow(hwnd); break;
             }
         } break;
 
@@ -83,6 +86,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 case 'X': BARD_BITUNSET(global_state.keyboard, 'X' - 65); break;
                 case 'Y': BARD_BITUNSET(global_state.keyboard, 'Y' - 65); break;
                 case 'Z': BARD_BITUNSET(global_state.keyboard, 'Z' - 65); break;
+                case VK_ESCAPE: BARD_BITUNSET(global_state.keyboard, BARD_ESC); break;
             }
         } break;
 
