@@ -10,11 +10,11 @@
 typedef struct Window_State {
     union {
         struct { // win32
-        HINSTANCE window_handle;
+        HINSTANCE instance;
         WNDCLASS window_class;
         WNDPROC window_proc;
         HWND window;
-        };
+        } win32;
     };
 } Window_State;
 
@@ -55,10 +55,10 @@ void bard_win32_window_create(const char* window_title, WNDPROC window_proc)
         NULL, NULL, hinstance, NULL
     );
 
-    global_window_state.window_handle = hinstance;
-    global_window_state.window_class = wc;
-    global_window_state.window = hwnd;
-    global_window_state.window_proc = window_proc;
+    global_window_state.win32.instance = hinstance;
+    global_window_state.win32.window_class = wc;
+    global_window_state.win32.window = hwnd;
+    global_window_state.win32.window_proc = window_proc;
 }
 
 #endif // BARDLIB_IMPLEMENTATION

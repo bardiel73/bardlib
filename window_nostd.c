@@ -33,7 +33,7 @@ int user_main()
 {
     bard_win32_window_create("this is a title", WindowProc);
 
-    ShowWindow(global_window_state.window, SW_NORMAL);
+    ShowWindow(global_window_state.win32.window, SW_NORMAL);
 
     MSG msg = {0};
     BOOL bRet;
