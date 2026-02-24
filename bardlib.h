@@ -14,25 +14,24 @@ typedef struct Window_State {
         WNDCLASS window_class;
         WNDPROC window_proc;
         HWND window;
-        int window_should_close;
-        uint64_t keyboard;
         } win32;
     };
+    int window_should_close;
+    uint64_t keyboard;
 } Window_State;
 
 void bard_window_create_win32(const char* window_title, WNDPROC window_proc);
 
 #endif // BARDLIB_H
 #ifdef BARDLIB_IMPLEMENTATION
-// ##################################
+
 // GLOBAL
+
+Window_State global_state;
+
 // ##################################
 
-Window_State global_window_state;
-
-// ##################################
 // FUNCTION DEFINITION
-// ##################################
 
 void bard_window_create_win32(const char* window_title, WNDPROC window_proc)
 {
@@ -57,12 +56,12 @@ void bard_window_create_win32(const char* window_title, WNDPROC window_proc)
         NULL, NULL, hinstance, NULL
     );
 
-    global_window_state.win32.instance = hinstance;
-    global_window_state.win32.window_class = wc;
-    global_window_state.win32.window = hwnd;
-    global_window_state.win32.window_proc = window_proc;
+    global_state.win32.instance = hinstance;
+    global_state.win32.window_class = wc;
+    global_state.win32.window = hwnd;
+    global_state.win32.window_proc = window_proc;
 
-    ShowWindow(global_window_state.win32.window, SW_NORMAL);
+    ShowWindow(global_state.win32.window, SW_NORMAL);
 }
 
 #endif // BARDLIB_IMPLEMENTATION
