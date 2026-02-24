@@ -14,6 +14,7 @@ typedef struct Window_State {
         WNDCLASS window_class;
         WNDPROC window_proc;
         HWND window;
+        int window_should_close;
         } win32;
     };
 } Window_State;
@@ -59,6 +60,8 @@ void bard_window_create_win32(const char* window_title, WNDPROC window_proc)
     global_window_state.win32.window_class = wc;
     global_window_state.win32.window = hwnd;
     global_window_state.win32.window_proc = window_proc;
+
+    ShowWindow(global_window_state.win32.window, SW_NORMAL);
 }
 
 #endif // BARDLIB_IMPLEMENTATION
