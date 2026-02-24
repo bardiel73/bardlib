@@ -18,7 +18,7 @@ typedef struct Window_State {
     };
 } Window_State;
 
-void bard_win32_window_create(const char* window_title, WNDPROC window_proc);
+void bard_window_create_win32(const char* window_title, WNDPROC window_proc);
 
 #endif // BARDLIB_H
 #ifdef BARDLIB_IMPLEMENTATION
@@ -32,7 +32,7 @@ Window_State global_window_state;
 // FUNCTION DEFINITION
 // ##################################
 
-void bard_win32_window_create(const char* window_title, WNDPROC window_proc)
+void bard_window_create_win32(const char* window_title, WNDPROC window_proc)
 {
     HINSTANCE hinstance = GetModuleHandleA(NULL);
 

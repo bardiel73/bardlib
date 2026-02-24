@@ -31,7 +31,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 int user_main()
 {
-    bard_win32_window_create("this is a title", WindowProc);
+    bard_window_create_win32("this is a title", WindowProc);
 
     ShowWindow(global_window_state.win32.window, SW_NORMAL);
 
