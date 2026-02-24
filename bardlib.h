@@ -15,6 +15,7 @@ typedef struct Window_State {
         WNDPROC window_proc;
         HWND window;
         int window_should_close;
+        uint64_t global_keyboard;
         } win32;
     };
 } Window_State;
