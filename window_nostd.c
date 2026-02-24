@@ -1,6 +1,9 @@
 
 #include "core.h"
 
+#define BARDLIB_IMPLEMENTATION
+#include "bardlib.h"
+
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     switch (uMsg)
@@ -28,27 +31,9 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 int user_main()
 {
-    HINSTANCE instance_handle = GetModuleHandleA(NULL);
-    const char* CLASS_NAME = "main_window_class_name";
+    bard_win32_window_create("this is a title", WindowProc);
 
-    WNDCLASS wc = { 0 };
-    wc.lpfnWndProc   = WindowProc;
-    wc.hInstance     = instance_handle;
-    wc.lpszClassName = CLASS_NAME;
-    wc.hCursor       = LoadCursorA(NULL, IDC_ARROW); // first param is the location of the cursor resource
-
-    RegisterClassA(&wc);
-
-    HWND hwnd = CreateWindowExA(
-        0,
-        CLASS_NAME,
-        "window_title",
-        WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
-        NULL, NULL, instance_handle, NULL
-    );
-
-    ShowWindow(hwnd, SW_NORMAL);
+    ShowWindow(global_window_state.window, SW_NORMAL);
 
     MSG msg = {0};
     BOOL bRet;
@@ -56,9 +41,8 @@ int user_main()
     { 
         if (bRet == -1) {return -1;}
 
-        TranslateMessage(&msg); 
-        DispatchMessageA(&msg); 
+        TranslateMessage(&msg); DispatchMessageA(&msg); 
     }
 
-    return 0;
+    return msg.wParam;
 }

@@ -2,12 +2,15 @@
 #include "windef.h" // IWYU pragma: keep
 #include "winuser.h" // IWYU pragma: keep
 
+#include <stdint.h> // IWYU pragma: keep
+#include <stddef.h> // IWYU pragma: keep
+
 int user_main();
 
 __attribute__((used))
-void* memset(void* dest, int c, unsigned long long n) {
-    unsigned char* p = (unsigned char*)dest;
-    while (n--) *p++ = (unsigned char)c;
+void* memset(void* dest, int c, uint64_t n) {
+    uint8_t* p = (uint8_t*)dest;
+    while (n--) *p++ = (uint8_t)c;
     return dest;
 }
 
