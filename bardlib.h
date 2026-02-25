@@ -7,6 +7,13 @@
 #include <stdint.h> // IWYU pragma: keep
 #include <stddef.h> // IWYU pragma: keep
 
+typedef struct BGRA {
+    uint8_t b;
+    uint8_t g;
+    uint8_t r;
+    uint8_t a;
+} BGRA;
+
 typedef struct Window_State {
     union {
         struct { // win32
@@ -20,6 +27,7 @@ typedef struct Window_State {
     int window_should_close;
     uint64_t keyboard; // indices 0 - 26 is ASCII english alphabet, set bit means key is being pressed
     uint32_t* pixels;
+    BGRA* pixels_BGRA;
     int64_t window_width;
     int64_t window_height;
 } Window_State;
@@ -188,6 +196,7 @@ void bard_create_window_win32(uint64_t window_width, uint64_t window_height, con
     global_state.win32.window_proc = WindowProc;
 
     global_state.pixels = (uint32_t*)VirtualAlloc(NULL, window_width * window_height * sizeof(uint32_t), MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
+    global_state.pixels_BGRA = (BGRA*)global_state.pixels;
     
     global_state.win32.bitmap_info.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
     global_state.win32.bitmap_info.bmiHeader.biWidth = window_width;
