@@ -1,9 +1,8 @@
-
-#include "windef.h" // IWYU pragma: keep
-#include "winuser.h" // IWYU pragma: keep
-
 #include <stdint.h> // IWYU pragma: keep
 #include <stddef.h> // IWYU pragma: keep
+
+#define WIN32_LEAN_AND_MEAN
+#include "windows.h" // IWYU pragma: keep
 
 int user_main();
 
@@ -13,9 +12,6 @@ void* memset(void* dest, int c, uint64_t n) {
     while (n--) *p++ = (uint8_t)c;
     return dest;
 }
-
-__attribute__((noreturn, dllimport))
-void __stdcall ExitProcess(int uExitCode);
 
 __attribute((force_align_arg_pointer, used, noreturn))
 void entry_point(void)

@@ -8,7 +8,7 @@ set CFLAGS=^
 
 set CFLAGS2= -Og
 
-set linking= -lkernel32 -luser32
+set linking= -lkernel32 -luser32 -lgdi32
 
 @echo on
 gcc %CFLAGS% %CFLAGS2% -o window_nostd.exe window_nostd.c %linking% && .\window_nostd.exe
