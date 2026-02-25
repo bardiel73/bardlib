@@ -24,7 +24,7 @@ typedef struct Window_State {
     int64_t window_height;
 } Window_State;
 
-void bard_create_window_win32(const char* window_title, uint64_t window_width, uint64_t window_height);
+void bard_create_window_win32(uint64_t window_width, uint64_t window_height, const char* window_title);
 void bard_begin_drawing_win32();
 void bard_end_drawing_win32();
 
@@ -157,7 +157,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     return 0;
 }
 
-void bard_create_window_win32(const char* window_title, uint64_t window_width, uint64_t window_height)
+void bard_create_window_win32(uint64_t window_width, uint64_t window_height, const char* window_title)
 {
     HINSTANCE hinstance = GetModuleHandleA(NULL);
 

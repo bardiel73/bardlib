@@ -22,7 +22,7 @@ void RenderSoftware(int x_offset, int y_offset) {
 
 int user_main()
 {
-    bard_create_window_win32("this is a title", 800, 600);
+    bard_create_window_win32(800, 600, "this is a title");
 
     uint16_t x = 0;
     uint16_t y = 0;
