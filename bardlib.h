@@ -219,7 +219,8 @@ void bard_begin_drawing_win32()
 
 void bard_end_drawing_win32()
 {
-    InvalidateRect(global_state.win32.window, NULL, FALSE);
+    RedrawWindow(global_state.win32.window, NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW);
+    // InvalidateRect(global_state.win32.window, NULL, FALSE);
 }
 
 #endif // BARDLIB_IMPLEMENTATION
