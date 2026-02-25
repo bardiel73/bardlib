@@ -16,8 +16,6 @@
 
 int user_main()
 {
-    uint64_t bazinga[100000] = {0};
-    
     bard_create_window_win32(800, 600, "this is a title");
 
     while (!global_state.window_should_close)
@@ -28,10 +26,6 @@ int user_main()
         {
             for (int x = 0; x < global_state.window_width; x++) 
             {
-/*                 global_state.pixels_BGRA[y * global_state.window_width + x].r = 255;
-                global_state.pixels_BGRA[y * global_state.window_width + x].g = 0;
-                global_state.pixels_BGRA[y * global_state.window_width + x].b = 0; */
-
                 global_state.pixels[y * global_state.window_width + x] = BARD_RGB(255, 0, 0);
             }
         }
