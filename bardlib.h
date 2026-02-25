@@ -18,7 +18,7 @@ typedef struct Window_State {
         } win32;
     };
     int window_should_close;
-    uint64_t keyboard;
+    uint64_t keyboard; // indices 0 - 26 is ASCII english alphabet, set bit means key is being pressed
     uint32_t* pixels;
     int64_t window_width;
     int64_t window_height;
@@ -50,7 +50,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     switch (uMsg)
     {
         case WM_CLOSE: { // user attempted to close the window
-            DestroyWindow(hwnd);
+            // DestroyWindow(hwnd);
+            PostQuitMessage(0);
         } break;
 
         case WM_DESTROY: { // the closed window's resources are getting released

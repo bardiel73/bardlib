@@ -1,6 +1,5 @@
 
 #include "core.h"
-#include <stdint.h>
 
 #define BARDLIB_IMPLEMENTATION
 #include "bardlib.h"
