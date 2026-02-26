@@ -7,13 +7,6 @@
 #include <stdint.h> // IWYU pragma: keep
 #include <stddef.h> // IWYU pragma: keep
 
-typedef struct BGRA {
-    uint8_t b;
-    uint8_t g;
-    uint8_t r;
-    uint8_t a;
-} BGRA;
-
 typedef struct Window_State {
     union {
         struct { // win32
@@ -27,7 +20,6 @@ typedef struct Window_State {
     int window_should_close;
     uint64_t keyboard; // indices 0 - 26 is ASCII english alphabet, set bit means key is being pressed
     uint32_t* pixels;
-    BGRA* pixels_BGRA;
     int64_t window_width;
     int64_t window_height;
 } Window_State;
@@ -50,6 +42,16 @@ Window_State global_state;
 
 #define BARD_LAST_ASCII ('Z' - 65)
 #define BARD_ESC (BARD_LAST_ASCII + 1)
+
+#define BARD_RGB(r, g, b) (uint32_t)((0x00 << 24) | (((uint8_t)(r)) << 16) | (((uint8_t)(g)) << 8) | ((uint8_t)(b)))
+
+#define R_RGB(rgb) (uint8_t)(((rgb) >> 16) & 0xFF)
+#define G_RGB(rgb) (uint8_t)(((rgb) >> 8) & 0xFF)
+#define B_RGB(rgb) (uint8_t)((rgb) & 0xFF)
+
+#define BARD_MIN(x_, y_) ((x_) <= (y_) ? (x_) : (y_))
+#define BARD_MAX(x_, y_) ((x_) >= (y_) ? (x_) : (y_))
+#define BARD_CLAMP(value_, minimum_, maximum_) BARD_MAX(minimum_, BARD_MIN(value_, maximum_))
 
 // FUNCTION DEFINITION
 
@@ -196,7 +198,6 @@ void bard_create_window_win32(uint64_t window_width, uint64_t window_height, con
     global_state.win32.window_proc = WindowProc;
 
     global_state.pixels = (uint32_t*)VirtualAlloc(NULL, window_width * window_height * sizeof(uint32_t), MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
-    global_state.pixels_BGRA = (BGRA*)global_state.pixels;
     
     global_state.win32.bitmap_info.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
     global_state.win32.bitmap_info.bmiHeader.biWidth = window_width;

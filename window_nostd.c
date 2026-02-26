@@ -1,18 +1,7 @@
-
 #include "core.h"
 
 #define BARDLIB_IMPLEMENTATION
 #include "bardlib.h"
-
-#define BARD_RGB(r, g, b) (uint32_t)((0x00 << 24) | (((uint8_t)(r)) << 16) | (((uint8_t)(g)) << 8) | ((uint8_t)(b)))
-
-#define R_RGB(rgb) (uint8_t)(((rgb) >> 16) & 0xFF)
-#define G_RGB(rgb) (uint8_t)(((rgb) >> 8) & 0xFF)
-#define B_RGB(rgb) (uint8_t)((rgb) & 0xFF)
-
-#define BARD_MIN(x_, y_) ((x_) <= (y_) ? (x_) : (y_))
-#define BARD_MAX(x_, y_) ((x_) >= (y_) ? (x_) : (y_))
-#define BARD_CLAMP(value_, minimum_, maximum_) BARD_MAX(minimum_, BARD_MIN(value_, maximum_))
 
 int user_main()
 {

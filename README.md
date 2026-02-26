@@ -17,9 +17,7 @@ int main()
         {
             for (int x = 0; x < global_state.window_width; x++) 
             {
-                global_state.pixels_BGRA[y * global_state.window_width + x].r = 255;
-                global_state.pixels_BGRA[y * global_state.window_width + x].g = 0;
-                global_state.pixels_BGRA[y * global_state.window_width + x].b = 255;
+                global_state.pixels[y * global_state.window_width + x] = BARD_RGB(255, 0, 0);
             }
         }
 
