@@ -5,7 +5,7 @@ set NOCRT=^
 -mno-stack-arg-probe -fno-asynchronous-unwind-tables ^
 -Wl,--entry,entry_point -Wl,--gc-sections -Wl,--subsystem,windows -Xlinker --stack=0x200000,0x200000
 
-set CFLAGS= -Wall -Wextra -Og
+set CFLAGS= -Wall -Wextra -Og -gdwarf-5 -g3
 set LFLAGS= -lntdll -lkernel32 -luser32 -lgdi32
 
 @echo on

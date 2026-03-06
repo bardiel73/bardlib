@@ -18,20 +18,20 @@ typedef int (__cdecl *PTR_RtlQueryPerformanceCounter)(uint64_t*);
 struct {
     PTR_RtlCopyMemory copy;
     PTR_RtlMoveMemory move;
-    PTR_RtlFillMemory fill;
+    PTR_RtlFillMemory set;
     PTR_RtlCompareMemory cmp;
 
     PTR_RtlQueryPerformanceFrequency qpc_freq;
     PTR_RtlQueryPerformanceCounter qpc_count;
 } ntdll_funcs = {0};
 
-void load_ntdll_funcs(void)
+static void load_ntdll_funcs(void)
 {
     if (ntdll_funcs.copy) return;
     HMODULE hNtdll = GetModuleHandleW(L"ntdll.dll");
     *(FARPROC*)&ntdll_funcs.copy = GetProcAddress(hNtdll, "RtlCopyMemory");
     *(FARPROC*)&ntdll_funcs.move = GetProcAddress(hNtdll, "RtlMoveMemory");
-    *(FARPROC*)&ntdll_funcs.fill = GetProcAddress(hNtdll, "RtlFillMemory");
+    *(FARPROC*)&ntdll_funcs.set = GetProcAddress(hNtdll, "RtlFillMemory");
     *(FARPROC*)&ntdll_funcs.cmp  = GetProcAddress(hNtdll, "RtlCompareMemory");
 
     *(FARPROC*)&ntdll_funcs.qpc_freq  = GetProcAddress(hNtdll, "RtlQueryPerformanceFrequency");
@@ -40,7 +40,7 @@ void load_ntdll_funcs(void)
 
 inline void* memcpy(void* dst, const void* src, size_t n) {return ntdll_funcs.copy(dst, src, n);}
 inline void* memmove(void* dst, const void* src, size_t n) {return ntdll_funcs.move(dst, src, n);}
-inline void* memset(void* dst, int c, size_t n) {return ntdll_funcs.fill(dst, n, c);}
+inline void* memset(void* dst, int c, size_t n) {return ntdll_funcs.set(dst, n, c);}
 inline int memcmp(const void* p1, const void* p2, size_t n)
 {
     size_t same = ntdll_funcs.cmp(p1, p2, n);
@@ -65,7 +65,7 @@ static inline void time_init(void)
     ntdll_funcs.qpc_freq((void*)&time.freq);
 }
 
-static inline double time_in_seconds(void)
+double time_in_seconds(void)
 {
     ntdll_funcs.qpc_count((void*)&time.current_count);
     double ret = (double)((time.current_count - time.previous_count) / (double)time.freq);
