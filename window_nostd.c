@@ -5,7 +5,7 @@
 
 #define BARD_ABS(x) (x) <= 0 ? -(x) : (x)
 
-// TODO: https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
+// TODO: implement https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
 bool idx_is_on_line(int64_t idx, int64_t x1, int64_t y1, int64_t x2, int64_t y2)
 {
     if (idx >= (int64_t)(global_state.window_height * global_state.window_width)) {printf_win32("WARNING: idx_is_on_line: idx too big \n)"); return false;}
@@ -18,34 +18,21 @@ bool idx_is_on_line(int64_t idx, int64_t x1, int64_t y1, int64_t x2, int64_t y2)
 
     if (!satisfies_x || !satisfies_y) return false;
 
-    // line formula: https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line#Line_defined_by_two_points
-    // - m = (y1-y2) / (x1-x2)
-    // - (y-y1) = m(x-x1)
-        // (y-y1)                                             = (x-x1) * (y1-y2) * 1/(x1-x2)
-        // (y-y1) * (x1-x2)                                   = (x-x1) * (y1-y2)
-        // (y-y1) * (x1-x2) - (x-x1) * (y1-y2)                = 0
-        // y*x1 -y*x2 -y1*x1 +y1*x2 -y1*x +y2*x -y1*x1 +y2*x1 = 0
-        // y(x1-x2) + x(y2-y1) + y1(x1-x2) + x1(y2-y1)        = 0
+    // naive line formula: https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line#Line_defined_by_two_points
+    double tolerance = 0.8;
 
-        // (y+y1)(x1-x2) + (x+x1)(y2-y1)                      = 0
-            // ^ in C: (idx_y + y1)*(x1 - x2) + (idx_x + x1)*(y2 - y1);
-    int64_t numerator = (idx_y + y1)*(x1 - x2) + (idx_x + x1)*(y2 - y1);
-    int64_t tolerance = 3000;
-
-    return numerator*numerator <= tolerance*tolerance;
-    
     int64_t dx = x1 - x2;
-    int64_t dy = y1 - y2; // sqrt(x^2 + y^2)
-    int64_t line_length_squared = dy*dy + dx*dx;
-    (void)line_length_squared;
+    int64_t dy = y1 - y2;
 
-    int64_t squared_length = (dx * dx) + (dy * dy);
+    if (dy*dy + dx*dx == 0) return idx_x == x1 && idx_y == y1;
 
-    // Tolerance: higher value = thicker line. 
-    // 0 = mathematically perfect (rarely hits), squared_length / 2 is roughly 1 pixel thick.
-    if (squared_length == 0) return idx_x == x1 && idx_y == y1; // Case: line is just a point
-    
-    return numerator*numerator <= (squared_length / 2); 
+    // int64_t distance_from_idx_to_line = ABSOLUTE_VALUE(dy*idx_x - dx*idx_y + x2*y1 - y2*x1) / SQRT(dy*dy + dx*dx);
+    // int64_t distance_from_idx_to_line_squared = (dy*idx_x - dx*idx_y + x2*y1 - y2*x1)*(dy*idx_x - dx*idx_y + x2*y1 - y2*x1) / (dy*dy + dx*dx);
+    int64_t distance_from_idx_to_line_squared_scaled = (dy*idx_x - dx*idx_y + x2*y1 - y2*x1)*(dy*idx_x - dx*idx_y + x2*y1 - y2*x1);
+    int64_t tolerance_squared_scaled = (int64_t)(tolerance * tolerance * (dy*dy + dx*dx));
+
+    // TODO: we could drop the "scaling" since we scale both sides by same amount, but it's not really important
+    return distance_from_idx_to_line_squared_scaled < tolerance_squared_scaled;
 }
 
 void bard_draw_line(uint64_t x1, uint64_t y1, uint64_t x2, uint64_t y2, uint32_t color)
