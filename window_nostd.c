@@ -5,37 +5,47 @@
 
 #define BARD_ABS(x) (x) <= 0 ? -(x) : (x)
 
-bool idx_is_on_line(uint64_t idx, uint64_t x1, uint64_t y1, uint64_t x2, uint64_t y2)
+// TODO: https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
+bool idx_is_on_line(int64_t idx, int64_t x1, int64_t y1, int64_t x2, int64_t y2)
 {
-    if (idx >= (global_state.window_height * global_state.window_width)) {printf_win32("WARNING: idx_is_on_line: idx too big \n)"); return false;}
+    if (idx >= (int64_t)(global_state.window_height * global_state.window_width)) {printf_win32("WARNING: idx_is_on_line: idx too big \n)"); return false;}
 
-    uint64_t idx_x = (uint64_t)(idx % global_state.window_width);
-    uint64_t idx_y = (uint64_t)(idx / global_state.window_width);
+    int64_t idx_x = (int64_t)(idx % global_state.window_width);
+    int64_t idx_y = (int64_t)(idx / global_state.window_width);
 
-    bool satisfies_y = false;
-    bool satisfies_x = false;
+    bool satisfies_y = y1 <= y2 ? y1 <= idx_y && idx_y <= y2 : y2 <= idx_y && idx_y <= y1;
+    bool satisfies_x = x1 <= x2 ? x1 <= idx_x && idx_x <= x2 : x2 <= idx_x && idx_x <= x1;
 
-    if (y1 == y2) {
-        satisfies_y = idx_y == y1;
-    } else {
-        satisfies_y = y1 < y2 ? y1 <= idx_y && idx_y <= y2 : y2 <= idx_y && idx_y <= y1;
-    }
+    if (!satisfies_x || !satisfies_y) return false;
 
-    if (x1 == x2) {
-        satisfies_x = idx_x == x1;
-    } else {
-        satisfies_x = x1 < x2 ? x1 <= idx_x && idx_x <= x2 : x2 <= idx_x && idx_x <= x1; 
-    }
+    // line formula: https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line#Line_defined_by_two_points
+    // - m = (y1-y2) / (x1-x2)
+    // - (y-y1) = m(x-x1)
+        // (y-y1)                                             = (x-x1) * (y1-y2) * 1/(x1-x2)
+        // (y-y1) * (x1-x2)                                   = (x-x1) * (y1-y2)
+        // (y-y1) * (x1-x2) - (x-x1) * (y1-y2)                = 0
+        // y*x1 -y*x2 -y1*x1 +y1*x2 -y1*x +y2*x -y1*x1 +y2*x1 = 0
+        // y(x1-x2) + x(y2-y1) + y1(x1-x2) + x1(y2-y1)        = 0
 
-    // y = mx + n
-    // m = (y1 - y2) / (x1 - x2)
-    // n = y - mx
-    double slope = x1 == x2 ? 1 : (double)(y1 - y2) / (double)(x1 - x2); // TODO: handle x1 == x2 case
-    int64_t constant = y1 - slope * x1;
+        // (y+y1)(x1-x2) + (x+x1)(y2-y1)                      = 0
+            // ^ in C: (idx_y + y1)*(x1 - x2) + (idx_x + x1)*(y2 - y1);
+    int64_t numerator = (idx_y + y1)*(x1 - x2) + (idx_x + x1)*(y2 - y1);
+    int64_t tolerance = 3000;
 
-    bool satisfies_line = (idx_y == slope * idx_x + constant); // TODO: add tolerance level instead of exact match, thickness?
+    return numerator*numerator <= tolerance*tolerance;
+    
+    int64_t dx = x1 - x2;
+    int64_t dy = y1 - y2; // sqrt(x^2 + y^2)
+    int64_t line_length_squared = dy*dy + dx*dx;
+    (void)line_length_squared;
 
-    return satisfies_x && satisfies_y && satisfies_line;
+    int64_t squared_length = (dx * dx) + (dy * dy);
+
+    // Tolerance: higher value = thicker line. 
+    // 0 = mathematically perfect (rarely hits), squared_length / 2 is roughly 1 pixel thick.
+    if (squared_length == 0) return idx_x == x1 && idx_y == y1; // Case: line is just a point
+    
+    return numerator*numerator <= (squared_length / 2); 
 }
 
 void bard_draw_line(uint64_t x1, uint64_t y1, uint64_t x2, uint64_t y2, uint32_t color)
@@ -70,8 +80,7 @@ void bard_clear_background(uint32_t color)
 
 int user_main()
 {
-    constexpr uint64_t factor = 60;
-    bard_create_window_win32(factor*16, factor*9, "this is a title");
+    bard_create_window_win32(800, 600, "this is a title");
 
     while (!global_state.window_should_close)
     {
@@ -79,7 +88,7 @@ int user_main()
         bard_clear_background(BARD_RGB(255, 255, 255));
 
         // TODO this is incorrect, it also breaks at 800 600 for another incorrectness
-        bard_draw_line(0, 0, factor*16 - 1, factor*9 - 1, BARD_RGB(255, 0, 0));
+        bard_draw_line(0, 0, 799, 599, BARD_RGB(255, 0, 0));
 
         bard_end_drawing_win32();
     }
