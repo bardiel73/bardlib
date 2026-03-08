@@ -19,7 +19,7 @@ bool idx_is_on_line(int64_t idx, int64_t x1, int64_t y1, int64_t x2, int64_t y2)
     if (!satisfies_x || !satisfies_y) return false;
 
     // naive line formula: https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line#Line_defined_by_two_points
-    double tolerance = 0.8;
+    double tolerance = 0.8; // TODO take thickness/tolerance into account in the satisfies_x/y checks above
 
     int64_t dx = x1 - x2;
     int64_t dy = y1 - y2;
