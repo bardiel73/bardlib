@@ -59,6 +59,9 @@ void bard_clear_background(uint32_t color)
 
 int user_main()
 {
+    printf_win32("is this flippin %s\n", "working");
+
+    return 0;
     bard_create_window_win32(800, 600, "this is a title");
 
     while (!global_state.window_should_close)

@@ -40,6 +40,7 @@ union {
 } time_win32 = {0};
 
 struct {
+    char buffer[1024];
     HANDLE stdout_handle;
     DWORD scratch_int;
 } stdout_win32 = {0};
@@ -82,15 +83,29 @@ static size_t bard_strlen_win32(const char *s) // TODO: move this to bardlib
 	for (; (uintptr_t)s % BA_ALIGN; s++) if (!*s) return s-a;
 
 	for (w = (const void *)s; !BA_HASZERO(*w); w++);
-    
+
 	s = (const void *)w;
 #endif
 	for (; *s; s++);
 	return s-a;
 }
 
+#define STB_SPRINTF_IMPLEMENTATION
+#include "stb_sprintf.h"
+
 void puts_win32(char* msg) {
     WriteFile(stdout_win32.stdout_handle, msg, (DWORD)bard_strlen_win32(msg), &stdout_win32.scratch_int, NULL);
+}
+
+// TODO: defines for different compilers
+__attribute__((format(printf, 1, 2))) // 1-indexed position of fmt string, and the variadic params
+void printf_win32(char* fmt, ...)
+{
+    __builtin_va_list args;
+    __builtin_va_start(args, fmt);
+
+    stbsp_vsprintf(stdout_win32.buffer, fmt, args);
+    puts_win32(stdout_win32.buffer);
 }
 
 static void init_layer_win32() {
@@ -118,6 +133,6 @@ void entry_point(void)
     init_layer_win32();
 
     int result = user_main();
-    
+
     ExitProcess(result);
 }
