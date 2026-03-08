@@ -49,8 +49,8 @@ Window_State global_state;
 #define G_RGB(rgb) (uint8_t)(((rgb) >> 8) & 0xFF)
 #define B_RGB(rgb) (uint8_t)((rgb) & 0xFF)
 
-#define BARD_MIN(x_, y_) ((x_) <= (y_) ? (x_) : (y_))
-#define BARD_MAX(x_, y_) ((x_) >= (y_) ? (x_) : (y_))
+#define BARD_MIN(x_, y_) ((x_) < (y_) ? (x_) : (y_))
+#define BARD_MAX(x_, y_) ((x_) > (y_) ? (x_) : (y_))
 #define BARD_CLAMP(value_, minimum_, maximum_) BARD_MAX(minimum_, BARD_MIN(value_, maximum_))
 
 // FUNCTION DEFINITION

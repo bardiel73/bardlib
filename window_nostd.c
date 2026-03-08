@@ -1,11 +1,7 @@
-#include "core.h"
-#include <windows.h>
-#include <wingdi.h>
+#include "bard_win32.h"
 
 #define BARDLIB_IMPLEMENTATION
 #include "bardlib.h"
-
-#define deblog(x) MessageBoxA(global_state.win32.window, (x), "debug", 0)
 
 bool on_line(int64_t idx, int64_t x1, int64_t y1, int64_t x2, int64_t y2)
 {
@@ -41,7 +37,7 @@ void bard_draw_line(uint64_t x1, uint64_t y1, uint64_t x2, uint64_t y2, uint32_t
     uint64_t biggeridx = idx1 > idx2 ? idx1 : idx2;
     uint64_t smalleridx = idx1 < idx2 ? idx1 : idx2;
 
-    if (biggeridx >= (global_state.window_height*global_state.window_width)) {deblog("ERROR: biggeridx is too big?"); return;}
+    if (biggeridx >= (global_state.window_height*global_state.window_width)) {return;}
 
     for (uint64_t idx = smalleridx; idx <= biggeridx; ++idx)
     {
