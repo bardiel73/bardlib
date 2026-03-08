@@ -74,7 +74,6 @@ int user_main()
         bard_begin_drawing_win32();
         bard_clear_background(BARD_RGB(255, 255, 255));
 
-        // TODO this is incorrect, it also breaks at 800 600 for another incorrectness
         bard_draw_line(0, 0, 799, 599, BARD_RGB(255, 0, 0));
 
         bard_end_drawing_win32();
