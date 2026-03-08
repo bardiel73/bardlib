@@ -20,8 +20,8 @@ typedef struct Window_State {
     int window_should_close;
     uint64_t keyboard; // indices 0 - 26 is ASCII english alphabet, set bit means key is being pressed
     uint32_t* pixels;
-    int64_t window_width;
-    int64_t window_height;
+    uint64_t window_width;
+    uint64_t window_height;
 } Window_State;
 
 void bard_create_window_win32(uint64_t window_width, uint64_t window_height, const char* window_title);
